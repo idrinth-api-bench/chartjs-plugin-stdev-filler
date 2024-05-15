@@ -1,0 +1,12 @@
+{
+  "name": "@idrinth-api-bench/chartjs-plugin-stdev-filler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "chart.js": "^4.4"
+  }
+}
