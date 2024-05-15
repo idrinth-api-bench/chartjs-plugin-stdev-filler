@@ -2,7 +2,7 @@
   "name": "@idrinth-api-bench/chartjs-plugin-stdev-filler",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "prepublishOnly": "tsc -p tsconfig.json"
