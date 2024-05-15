@@ -1,6 +1,7 @@
-import {Chart, LineElement} from "chart.js";
-import _default from "chart.js/dist/core/core.interaction";
-import x = _default.modes.x;
+import {
+    Chart,
+    LineElement,
+} from 'chart.js';
 
 interface Source {
     visible: boolean;
@@ -14,21 +15,26 @@ export default {
     id: 'stdev-filler',
 
     afterDatasetsUpdate(chart: Chart) {
-        const count = (chart.data.datasets || []).length;
+        const count: number = (chart.data.datasets || []).length;
 
-        for (let i = 0; i < count; ++i) {
+        for (let i = 0; i < count; i++) {
             const meta = chart.getDatasetMeta(i);
             const line = meta.dataset;
 
             if (line && line.options && typeof line.options.borderColor === 'string' && typeof line.options.stdev === 'object' && line instanceof LineElement) {
                 // @ts-ignore
                 const stdev: number[] = line.options?.stdev ?? [];
+                let color = 'rgba(0,0,0,0.1)';
+                if (typeof line.options.borderColor === 'string') {
+                    const original = line.options.borderColor;
+                    color = original.replace(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/u, 'rgba($1,$2,$3,0.1)');
+                }
                 meta["$stdevFiller"] = {
                     visible: chart.isDatasetVisible(i),
                     index: i,
-                    color: line.options.borderColor.replace(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/, 'rgba($1,$2,$3,0.1)'),
-                    below: chart.data.datasets[i].data.map((x: number, pos,) => x - stdev[pos]),
-                    above: chart.data.datasets[i].data.map((x: number, pos,) => x + stdev[pos]),
+                    color,
+                    below: chart.data.datasets[i].data.map((x: number, pos: number,) => x - stdev[pos]) as number[],
+                    above: chart.data.datasets[i].data.map((x: number, pos: number,) => x + stdev[pos]) as number[],
                 };
             }
         }
