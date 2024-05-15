@@ -44,15 +44,15 @@ export default {
         chart.ctx.fillStyle = source.color;
         let pos = 0;
         for (const y of source.below) {
-            chart.ctx.lineTo(pos, y);
+            chart.ctx.moveTo(pos, y);
             pos ++;
         }
         pos = 0;
         for (const y of source.above) {
-            chart.ctx.lineTo(pos, y);
+            chart.ctx.moveTo(pos, y);
             pos ++;
         }
-        chart.ctx.lineTo(0, source.below[0]);
+        chart.ctx.moveTo(0, source.below[0]);
         chart.ctx.fill();
     },
 
