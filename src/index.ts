@@ -22,7 +22,7 @@ export default {
 
             if (line && typeof line['stdev'] === 'object' && (line.type === 'line' || typeof line.type === 'undefined')) {
                 // @ts-ignore
-                const stdev: number[] = line.options?.stdev ?? [];
+                const stdev: number[] = line?.stdev ?? [];
                 let color = 'rgba(0,0,0,0.1)';
                 if (typeof line.borderColor === 'string') {
                     color = line.borderColor.replace(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/u, 'rgba($1,$2,$3,0.1)');
@@ -31,8 +31,8 @@ export default {
                     visible: chart.isDatasetVisible(i),
                     index: i,
                     color,
-                    below: line.data.map((x: number, pos: number,) => x - stdev[pos]) as number[],
-                    above: line.data.map((x: number, pos: number,) => x + stdev[pos]) as number[],
+                    below: line.data.map((x: number, pos: number,) => x - stdev[pos]??0) as number[],
+                    above: line.data.map((x: number, pos: number,) => x + stdev[pos]??0) as number[],
                 };
             }
         }
