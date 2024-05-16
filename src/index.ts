@@ -56,7 +56,6 @@ export default {
             chart.ctx.lineTo(pos * width + chart.chartArea.left, y * height + chart.chartArea.bottom);
             pos ++;
         }
-        pos = 0;
         for (const y of source.above.reverse()) {
             chart.ctx.lineTo(pos * width + chart.chartArea.left/source.below.length, y * height + chart.chartArea.bottom);
             pos --;
