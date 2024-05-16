@@ -47,7 +47,9 @@ export default {
 
         chart.ctx.fillStyle = source.color;
         let pos = 0;
-        const height = chart.chartArea.height/chart.data.yLabels.length;
+        // @ts-ignore
+        const maxY = Math.max(...chart.data.datasets.map(set => Math.max(...set.data))):
+        const height = chart.chartArea.height/maxY;
         const width = chart.width/(source.below.length + 1)
         chart.ctx.moveTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.top);
         for (const y of source.below) {
