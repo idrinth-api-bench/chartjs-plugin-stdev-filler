@@ -48,6 +48,7 @@ export default {
         chart.ctx.fillStyle = source.color;
         let pos = 0;
         chart.ctx.moveTo(pos * chart.width/source.below.length, source.below[0]);
+        const width = chart.width/(source.below.length + 1)
         for (const y of source.below) {
             chart.ctx.lineTo(pos * chart.width/source.below.length, y);
             pos ++;
