@@ -1,6 +1,5 @@
 import {
     Chart,
-    LineElement,
 } from 'chart.js';
 
 interface Source {
