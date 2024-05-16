@@ -20,7 +20,7 @@ export default {
             const meta = chart.getDatasetMeta(i);
             const line = chart.data.datasets[i];
 
-            if (line && line && typeof line.borderColor === 'string' && typeof line['stdev'] === 'object' && line.type === 'line') {
+            if (line && typeof line['stdev'] === 'object' && (line.type === 'line' || typeof line.type === 'undefined')) {
                 // @ts-ignore
                 const stdev: number[] = line.options?.stdev ?? [];
                 let color = 'rgba(0,0,0,0.1)';
