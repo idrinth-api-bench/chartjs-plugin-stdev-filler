@@ -51,17 +51,17 @@ export default {
         const maxY = Math.max(...chart.data.datasets.map(set => Math.max(...set.data)));
         const height = chart.chartArea.height/maxY;
         const width = chart.width/(source.below.length + 1)
-        chart.ctx.moveTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.top);
+        chart.ctx.moveTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.bottom);
         for (const y of source.below) {
-            chart.ctx.lineTo(pos * width + chart.chartArea.left, y*height + chart.chartArea.top);
+            chart.ctx.lineTo(pos * width + chart.chartArea.left, y * height + chart.chartArea.bottom);
             pos ++;
         }
         pos = 0;
-        for (const y of source.above) {
-            chart.ctx.lineTo(pos * width + chart.chartArea.left/source.below.length, y * height + chart.chartArea.top);
-            pos ++;
+        for (const y of source.above.reverse()) {
+            chart.ctx.lineTo(pos * width + chart.chartArea.left/source.below.length, y * height + chart.chartArea.bottom);
+            pos --;
         }
-        chart.ctx.lineTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.top);
+        chart.ctx.lineTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.bottom);
         chart.ctx.fill();
     },
 
