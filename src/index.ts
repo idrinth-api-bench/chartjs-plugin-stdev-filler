@@ -47,18 +47,19 @@ export default {
 
         chart.ctx.fillStyle = source.color;
         let pos = 0;
-        chart.ctx.moveTo(pos * chart.width/source.below.length, source.below[0]);
+        const height = chart.chartArea.height/chart.data.yLabels.length;
         const width = chart.width/(source.below.length + 1)
+        chart.ctx.moveTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.top);
         for (const y of source.below) {
-            chart.ctx.lineTo(pos * chart.width/source.below.length, y);
+            chart.ctx.lineTo(pos * width + chart.chartArea.left, y*height + chart.chartArea.top);
             pos ++;
         }
         pos = 0;
         for (const y of source.above) {
-            chart.ctx.lineTo(pos * chart.width/source.below.length, y);
+            chart.ctx.lineTo(pos * width + chart.chartArea.left/source.below.length, y * height + chart.chartArea.top);
             pos ++;
         }
-        chart.ctx.lineTo(0, source.below[0] * chart.height);
+        chart.ctx.lineTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.top);
         chart.ctx.fill();
     },
 
