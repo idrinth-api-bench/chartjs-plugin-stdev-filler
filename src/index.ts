@@ -19,29 +19,28 @@ export default {
 
         for (let i = 0; i < count; i++) {
             const meta = chart.getDatasetMeta(i);
-            const line = meta.dataset;
+            const line = chart.data.datasets[i];
 
-            if (line && line.options && typeof line.options.borderColor === 'string' && typeof line.options.stdev === 'object' && line instanceof LineElement) {
+            if (line && line && typeof line.borderColor === 'string' && typeof line['stdev'] === 'object' && line.type === 'line') {
                 // @ts-ignore
                 const stdev: number[] = line.options?.stdev ?? [];
                 let color = 'rgba(0,0,0,0.1)';
-                if (typeof line.options.borderColor === 'string') {
-                    const original = line.options.borderColor;
-                    color = original.replace(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/u, 'rgba($1,$2,$3,0.1)');
+                if (typeof line.borderColor === 'string') {
+                    color = line.borderColor.replace(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/u, 'rgba($1,$2,$3,0.1)');
                 }
                 meta["$stdevFiller"] = {
                     visible: chart.isDatasetVisible(i),
                     index: i,
                     color,
-                    below: chart.data.datasets[i].data.map((x: number, pos: number,) => x - stdev[pos]) as number[],
-                    above: chart.data.datasets[i].data.map((x: number, pos: number,) => x + stdev[pos]) as number[],
+                    below: line.data.map((x: number, pos: number,) => x - stdev[pos]) as number[],
+                    above: line.data.map((x: number, pos: number,) => x + stdev[pos]) as number[],
                 };
             }
         }
     },
 
     beforeDatasetDraw(chart: Chart, args: { meta: { $stdevFiller?: Source; }; }) {
-        const source = args.meta.$stdevFiller;
+        const source = args?.meta?.$stdevFiller;
 
         if (! source || !source.visible) {
             return;
