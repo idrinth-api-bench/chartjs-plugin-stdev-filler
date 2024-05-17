@@ -1,12 +1,13 @@
 {
   "name": "@idrinth-api-bench/chartjs-plugin-stdev-filler",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [
     "chartjs",
     "chartjs-plugin",
     "plugin",
     "stdev"
   ],
+  "license": "MIT",
   "description": "This tiny plugin shows the standardeviation as a colored area around a line chart.",
   "main": "src/index.js",
   "type": "module",
