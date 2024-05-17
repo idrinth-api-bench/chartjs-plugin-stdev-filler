@@ -4,7 +4,7 @@
   "keywords": [
     "chartjs",
     "chartjs-plugin",
-    "chatjs",
+    "plugin",
     "stdev"
   ],
   "description": "This tiny plugin shows the standardeviation as a colored area around a line chart.",
