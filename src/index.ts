@@ -49,18 +49,26 @@ export default {
         let pos = 0;
         const height = chart.chartArea.height/chart.scales.y.max;
         const width = chart.chartArea.width/chart.scales.x.max
+        const point = (x: number, y: number) => [
+            x * width + chart.chartArea.left,
+            Math.max(0, Math.min(chart.scales.y.max, (chart.scales.y.max-y) * height + chart.chartArea.top)),
+        ];
 
-        chart.ctx.moveTo(chart.chartArea.left, (chart.scales.y.max-source.below[0]) * height + chart.chartArea.top);
+        // @ts-ignore
+        chart.ctx.moveTo(...point(0, source.below[0]));
         for (const y of source.below) {
-            chart.ctx.lineTo(pos * width + chart.chartArea.left, (chart.scales.y.max-y) * height + chart.chartArea.top);
+            // @ts-ignore
+            chart.ctx.lineTo(...point(pos, y));
             pos ++;
         }
         pos --;
         for (const y of source.above.toReversed()) {
-            chart.ctx.lineTo(pos * width + chart.chartArea.left, (chart.scales.y.max-y) * height + chart.chartArea.top);
+            // @ts-ignore
+            chart.ctx.lineTo(...point(pos, y));
             pos --;
         }
-        chart.ctx.lineTo(chart.chartArea.left, (chart.scales.y.max-source.below[0]) * height + chart.chartArea.top);
+        // @ts-ignore
+        chart.ctx.lineTo(...point(0, source.below[0]));
         chart.ctx.fill();
         chart.ctx.fillStyle = 'transparent';
     },
