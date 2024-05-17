@@ -47,21 +47,20 @@ export default {
 
         chart.ctx.fillStyle = source.color;
         let pos = 0;
-        // @ts-ignore
-        const maxY = Math.max(...chart.data.datasets.map(set => Math.max(...set.data)));
-        const height = chart.chartArea.height/maxY;
-        const width = chart.width/(source.below.length + 1)
-        chart.ctx.moveTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.bottom);
+        const height = chart.chartArea.height/chart.scales.y.max;
+        const width = chart.chartArea.width/chart.scales.x.max
+
+        chart.ctx.moveTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.top);
         for (const y of source.below) {
-            chart.ctx.lineTo(pos * width + chart.chartArea.left, y * height + chart.chartArea.bottom);
+            chart.ctx.lineTo(pos * width + chart.chartArea.left, y * height + chart.chartArea.top);
             pos ++;
         }
         pos --;
         for (const y of source.above.toReversed()) {
-            chart.ctx.lineTo(pos * width + chart.chartArea.left, y * height + chart.chartArea.bottom);
+            chart.ctx.lineTo(pos * width + chart.chartArea.left, y * height + chart.chartArea.top);
             pos --;
         }
-        chart.ctx.lineTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.bottom);
+        chart.ctx.lineTo(chart.chartArea.left, source.below[0] * height + chart.chartArea.top);
         chart.ctx.fill();
     },
 
