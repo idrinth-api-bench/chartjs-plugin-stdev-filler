@@ -1,6 +1,6 @@
 {
   "name": "@idrinth-api-bench/chartjs-plugin-stdev-filler",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "chartjs",
     "chartjs-plugin",
