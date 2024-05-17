@@ -54,6 +54,7 @@ export default {
             Math.max(chart.scales.y.max - y, 0) * height + chart.chartArea.top,
         ];
 
+        chart.ctx.beginPath();
         // @ts-ignore
         chart.ctx.moveTo(...point(0, source.below[0]));
         for (const y of source.below) {
