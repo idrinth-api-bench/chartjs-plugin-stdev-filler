@@ -51,7 +51,7 @@ export default {
         const width = chart.chartArea.width/chart.scales.x.max
         const point = (x: number, y: number) => [
             x * width + chart.chartArea.left,
-            (chart.scales.y.max - y) * height + chart.chartArea.top,
+            Math.max(chart.scales.y.max - y, 0) * height + chart.chartArea.top,
         ];
 
         // @ts-ignore
