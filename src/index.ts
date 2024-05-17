@@ -62,6 +62,7 @@ export default {
         }
         chart.ctx.lineTo(chart.chartArea.left, (chart.scales.y.max-source.below[0]) * height + chart.chartArea.top);
         chart.ctx.fill();
+        chart.ctx.fillStyle = 'transparent';
     },
 
     defaults: {
