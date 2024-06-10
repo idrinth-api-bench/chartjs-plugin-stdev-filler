@@ -19,12 +19,20 @@
   },
   "homepage": "https://idrinth-api-ben.ch",
   "scripts": {
-    "prepublishOnly": "tsc -p tsconfig.json"
+    "prepublishOnly": "tsc -p tsconfig.json",
+    "test": "mocha --timeout 30000 --require ts-node/register test/**.test.ts"
   },
   "peerDependencies": {
     "chart.js": "^4.4"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.16",
+    "@types/mocha": "^10.0.6",
+    "chai": "^5.1.1",
+    "mocha": "^10.4.0",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
   }
 }
