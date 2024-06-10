@@ -1,12 +1,11 @@
 import { expect } from "chai";
-import { Chart } from "chart.js";
-
 import ChartUtils from "../src/index.ts";
+import sinon from "sinon";
 
 describe("Testing ChartUtils", () => {
   it("Testing afterDatasetsUpdate", () => {
 
-    const _meta = {
+    let meta = {
       data: [10, 9, 11, 13, 11],
       $stdevFiller: {},
     };
@@ -22,16 +21,13 @@ describe("Testing ChartUtils", () => {
           },
         ],
       },
-      getDatasetMeta: (index) => _meta,
+      getDatasetMeta: (index) => meta,
       isDatasetVisible: (index) => true,
     };
 
     ChartUtils.afterDatasetsUpdate(chart);
 
-    const meta = chart.getDatasetMeta(0);
-
     expect(meta).to.have.property("$stdevFiller");
-    expect(meta.$stdevFiller).to.be.ok
     expect(meta.$stdevFiller).to.deep.equal({
       visible: true,
       index: 0,
@@ -43,7 +39,7 @@ describe("Testing ChartUtils", () => {
 
   it("Testing beforeDatasetDraw", () => {
     
-    const _meta = {
+    const meta = {
       data: [10, 9, 11, 13, 11],
       $stdevFiller: {
         visible: true,
@@ -56,11 +52,11 @@ describe("Testing ChartUtils", () => {
 
     const mockCtx = {
       fillStyle: "",
-      beginPath: () => {},
-      moveTo: () => {},
-      lineTo: () => {},
-      closePath: () => {},
-      fill: () => {},
+      beginPath: sinon.spy(),
+      moveTo: sinon.spy(),
+      lineTo: sinon.spy(),
+      closePath: sinon.spy(),
+      fill: sinon.spy(),
     };
 
     const chart = {
@@ -70,13 +66,18 @@ describe("Testing ChartUtils", () => {
         x: { getPixelForValue: (value) => value * 10 },
         y: { getPixelForValue: (value) => 100 - value * 10 },
       },
-      getDatasetMeta: (index) => _meta,
+      getDatasetMeta: (index) => meta,
     };
 
-    const args = { meta: _meta };
+    const args = { meta: meta };
 
     ChartUtils.beforeDatasetDraw(chart, args);
 
     expect(mockCtx.fillStyle).to.equal("transparent");
+    expect(mockCtx.beginPath.calledOnce).to.be.true;
+    expect(mockCtx.moveTo.calledOnce).to.be.true;
+    expect(mockCtx.lineTo.called).to.be.true;
+    expect(mockCtx.closePath.calledOnce).to.be.false;
+    expect(mockCtx.fill.calledOnce).to.be.true;
   });
 });
