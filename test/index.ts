@@ -5,7 +5,7 @@ import sinon from "sinon";
 describe("Testing ChartUtils", () => {
   it("Testing afterDatasetsUpdate", () => {
 
-    let meta = {
+    const meta = {
       data: [10, 9, 11, 13, 11],
       $stdevFiller: {},
     };
@@ -69,7 +69,7 @@ describe("Testing ChartUtils", () => {
       getDatasetMeta: (index) => meta,
     };
 
-    const args = { meta: meta };
+    const args = { meta };
 
     ChartUtils.beforeDatasetDraw(chart, args);
 
