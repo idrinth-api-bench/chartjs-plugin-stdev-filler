@@ -77,7 +77,7 @@ describe("Testing ChartUtils", () => {
     expect(mockCtx.beginPath.calledOnce).to.be.true;
     expect(mockCtx.moveTo.calledOnce).to.be.true;
     expect(mockCtx.lineTo.called).to.be.true;
-    expect(mockCtx.closePath.calledOnce).to.be.false;
+    expect(mockCtx.closePath.calledOnce).to.be.true;
     expect(mockCtx.fill.calledOnce).to.be.true;
   });
 });
